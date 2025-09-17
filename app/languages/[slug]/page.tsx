@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, Share, Download } from "lucide-react";
 import { Key } from "react";
 
+/* -------------------------------------------------------------------------- */
+/*                                   Types                                    */
+/* -------------------------------------------------------------------------- */
+
 // Définir le type d'un programme
 type Program = {
   name: string;
@@ -22,6 +26,17 @@ type Language = {
   liveStream: string;
   slogan: string;
 };
+
+// Props pour la page et generateMetadata
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                 Données                                     */
+/* -------------------------------------------------------------------------- */
 
 // Définir toutes les langues possibles
 const languages: Record<string, Language> = {
@@ -43,8 +58,7 @@ const languages: Record<string, Language> = {
   english: {
     name: "English",
     nativeName: "English",
-    description:
-      "News, music and cultural programs for English-speaking Africa",
+    description: "News, music and cultural programs for English-speaking Africa",
     listeners: "18M+",
     flag: "🇬🇧",
     programs: [
@@ -58,8 +72,7 @@ const languages: Record<string, Language> = {
   arabic: {
     name: "العربية",
     nativeName: "Arabic",
-    description:
-      "برامج إخبارية وثقافية وترفيهية للمجتمعات العربية في أفريقيا",
+    description: "برامج إخبارية وثقافية وترفيهية للمجتمعات العربية في أفريقيا",
     listeners: "8M+",
     flag: "🇸🇦",
     programs: [
@@ -73,8 +86,7 @@ const languages: Record<string, Language> = {
   kiswahili: {
     name: "Kiswahili",
     nativeName: "Kiswahili",
-    description:
-      "Programu za habari, utamaduni na burudani kwa waongezaji wa Kiswahili",
+    description: "Programu za habari, utamaduni na burudani kwa waongezaji wa Kiswahili",
     listeners: "15M+",
     flag: "🇹🇿",
     programs: [
@@ -102,7 +114,11 @@ const languages: Record<string, Language> = {
   },
 };
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+/* -------------------------------------------------------------------------- */
+/*                              Page Metadata                                  */
+/* -------------------------------------------------------------------------- */
+
+export async function generateMetadata({ params }: PageProps) {
   const language = languages[params.slug];
   if (!language) {
     return { title: "Langue non trouvée - Africa N1" };
@@ -113,7 +129,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function LanguagePage({ params }: { params: { slug: string } }) {
+/* -------------------------------------------------------------------------- */
+/*                                  Page                                       */
+/* -------------------------------------------------------------------------- */
+
+export default function LanguagePage({ params }: PageProps) {
   const language = languages[params.slug];
   if (!language) notFound();
 
@@ -234,6 +254,10 @@ export default function LanguagePage({ params }: { params: { slug: string } }) {
     </div>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*                           Static Params (SSG)                               */
+/* -------------------------------------------------------------------------- */
 
 export async function generateStaticParams() {
   return [
