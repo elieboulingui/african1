@@ -3,19 +3,18 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, Share, Download } from "lucide-react";
 import { Key } from "react";
+import type { Metadata } from "next";
 
 /* -------------------------------------------------------------------------- */
 /*                                   Types                                    */
 /* -------------------------------------------------------------------------- */
 
-// Définir le type d'un programme
 type Program = {
   name: string;
   time: string;
   host: string;
 };
 
-// Définir le type d'une langue
 type Language = {
   name: string;
   nativeName: string;
@@ -27,18 +26,17 @@ type Language = {
   slogan: string;
 };
 
-// Props pour la page et generateMetadata
+// ✅ Ici params est une Promise
 type PageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 /* -------------------------------------------------------------------------- */
-/*                                 Données                                     */
+/*                                 Données                                    */
 /* -------------------------------------------------------------------------- */
 
-// Définir toutes les langues possibles
 const languages: Record<string, Language> = {
   francais: {
     name: "Français",
@@ -58,7 +56,8 @@ const languages: Record<string, Language> = {
   english: {
     name: "English",
     nativeName: "English",
-    description: "News, music and cultural programs for English-speaking Africa",
+    description:
+      "News, music and cultural programs for English-speaking Africa",
     listeners: "18M+",
     flag: "🇬🇧",
     programs: [
@@ -72,7 +71,8 @@ const languages: Record<string, Language> = {
   arabic: {
     name: "العربية",
     nativeName: "Arabic",
-    description: "برامج إخبارية وثقافية وترفيهية للمجتمعات العربية في أفريقيا",
+    description:
+      "برامج إخبارية وثقافية وترفيهية للمجتمعات العربية في أفريقيا",
     listeners: "8M+",
     flag: "🇸🇦",
     programs: [
@@ -86,7 +86,8 @@ const languages: Record<string, Language> = {
   kiswahili: {
     name: "Kiswahili",
     nativeName: "Kiswahili",
-    description: "Programu za habari, utamaduni na burudani kwa waongezaji wa Kiswahili",
+    description:
+      "Programu za habari, utamaduni na burudani kwa waongezaji wa Kiswahili",
     listeners: "15M+",
     flag: "🇹🇿",
     programs: [
@@ -118,8 +119,9 @@ const languages: Record<string, Language> = {
 /*                              Page Metadata                                  */
 /* -------------------------------------------------------------------------- */
 
-export async function generateMetadata({ params }: PageProps) {
-  const language = languages[params.slug];
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params; // ✅ déstructuration après "await"
+  const language = languages[slug];
   if (!language) {
     return { title: "Langue non trouvée - Africa N1" };
   }
@@ -133,8 +135,9 @@ export async function generateMetadata({ params }: PageProps) {
 /*                                  Page                                       */
 /* -------------------------------------------------------------------------- */
 
-export default function LanguagePage({ params }: PageProps) {
-  const language = languages[params.slug];
+export default async function LanguagePage({ params }: PageProps) {
+  const { slug } = await params; // ✅ idem ici
+  const language = languages[slug];
   if (!language) notFound();
 
   return (
@@ -215,9 +218,9 @@ export default function LanguagePage({ params }: PageProps) {
             <div className="bg-card rounded-lg p-6 shadow mb-6">
               <p className="mb-4">{language.description}</p>
               <p>
-                Africa N1 diffuse en {language.nativeName} pour connecter les communautés à travers le
-                continent et offrir un contenu de qualité qui reflète la diversité et la richesse
-                culturelle de l'Afrique.
+                Africa N1 diffuse en {language.nativeName} pour connecter les communautés à
+                travers le continent et offrir un contenu de qualité qui reflète la diversité
+                et la richesse culturelle de l'Afrique.
               </p>
             </div>
 
