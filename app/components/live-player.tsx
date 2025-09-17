@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Play, Pause, Volume2, VolumeX, Radio, Clock, Calendar, ExternalLink } from "lucide-react"
 
-// URL de flux radio réels (quelques exemples de radios africaines)
+// URL de flux radio réels (qelques exemples de radios africaines)
 const RADIO_STREAMS = {
   francais: "https://stream.radioafrica.net/radioafrica",
   english: "https://streaming.radio.co/sa09dabcc7/listen",
