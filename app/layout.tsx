@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   title: "Africa N1 - Radio Internationale",
   description:
     "Radio internationale africaine diffusant en plusieurs langues - International African radio broadcasting in multiple languages",
-  generator: "v0.app",
+  generator: "boulingui",
 }
 
 export default function RootLayout({
