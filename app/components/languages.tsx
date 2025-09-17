@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Globe, Users, Radio } from "lucide-react"
+import Link from "next/link"
 
 export function Languages() {
   const languages = [
@@ -11,6 +12,7 @@ export function Languages() {
       listeners: "12M+",
       flag: "🇫🇷",
       programs: ["Journal Matinal", "Débat Citoyen", "Musiques Francophones"],
+      slug: "francais",
     },
     {
       name: "English",
@@ -19,6 +21,7 @@ export function Languages() {
       listeners: "18M+",
       flag: "🇬🇧",
       programs: ["Morning News", "African Beats", "Business Today"],
+      slug: "english",
     },
     {
       name: "العربية",
@@ -27,6 +30,7 @@ export function Languages() {
       listeners: "8M+",
       flag: "🇸🇦",
       programs: ["أخبار المساء", "الثقافة العربية", "موسيقى عربية"],
+      slug: "arabic",
     },
     {
       name: "Kiswahili",
@@ -35,6 +39,7 @@ export function Languages() {
       listeners: "15M+",
       flag: "🇹🇿",
       programs: ["Habari za Asubuhi", "Muziki wa Afrika", "Mazungumzo ya Kijamii"],
+      slug: "kiswahili",
     },
     {
       name: "Português",
@@ -43,6 +48,7 @@ export function Languages() {
       listeners: "6M+",
       flag: "🇵🇹",
       programs: ["Jornal da Manhã", "Cultura Lusófona", "Música Africana"],
+      slug: "portugues",
     },
   ]
 
@@ -88,10 +94,12 @@ export function Languages() {
                   </div>
                 </div>
 
-                <Button variant="outline" size="sm" className="w-full bg-transparent">
-                  <Globe className="h-4 w-4 mr-2" />
-                  Écouter en {language.name}
-                </Button>
+                <Link href={`/languages/${language.slug}`} passHref>
+                  <Button variant="outline" size="sm" className="w-full bg-transparent">
+                    <Globe className="h-4 w-4 mr-2" />
+                    Écouter en {language.name}
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}
@@ -103,9 +111,11 @@ export function Languages() {
             Découvrez la richesse linguistique et culturelle de l'Afrique à travers nos programmes multilingues. Chaque
             langue raconte une histoire unique du continent.
           </p>
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            Découvrir tous nos programmes
-          </Button>
+          <Link href="/programs" passHref>
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              Découvrir tous nos programmes
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
