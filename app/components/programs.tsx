@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Clock, Mic, Music, Globe } from "lucide-react"
+import Link from "next/link"
 
 export function Programs() {
   const programs = [
@@ -11,6 +12,7 @@ export function Programs() {
       language: "Français",
       icon: Mic,
       color: "bg-primary/10 text-primary",
+      slug: "journal-matinal",
     },
     {
       title: "African Beats",
@@ -19,6 +21,7 @@ export function Programs() {
       language: "English",
       icon: Music,
       color: "bg-accent/10 text-accent",
+      slug: "african-beats",
     },
     {
       title: "أخبار المساء",
@@ -27,6 +30,7 @@ export function Programs() {
       language: "العربية",
       icon: Globe,
       color: "bg-primary/10 text-primary",
+      slug: "akhbar-al-masaa",
     },
     {
       title: "Habari za Usiku",
@@ -35,6 +39,7 @@ export function Programs() {
       language: "Kiswahili",
       icon: Mic,
       color: "bg-accent/10 text-accent",
+      slug: "habari-za-usiku",
     },
     {
       title: "Notícias Lusófonas",
@@ -43,6 +48,7 @@ export function Programs() {
       language: "Português",
       icon: Globe,
       color: "bg-primary/10 text-primary",
+      slug: "noticias-lusofonas",
     },
     {
       title: "Culture Mix",
@@ -51,6 +57,7 @@ export function Programs() {
       language: "Multilingue",
       icon: Music,
       color: "bg-accent/10 text-accent",
+      slug: "culture-mix",
     },
   ]
 
@@ -88,8 +95,10 @@ export function Programs() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">{program.description}</p>
-                  <Button variant="outline" size="sm" className="w-full bg-transparent">
-                    En savoir plus
+                  <Button variant="outline" size="sm" className="w-full bg-transparent" asChild>
+                    <Link href={`/programmes/${program.slug}`}>
+                      En savoir plus
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -98,8 +107,10 @@ export function Programs() {
         </div>
 
         <div className="text-center">
-          <Button size="lg" variant="outline">
-            Voir la grille complète
+          <Button size="lg" variant="outline" asChild>
+            <Link href="/grille-des-programmes">
+              Voir la grille complète
+            </Link>
           </Button>
         </div>
       </div>
