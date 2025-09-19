@@ -87,19 +87,20 @@ const programsData = [
 ]
 
 interface ProgramDetailPageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{ slug: string }>;
 }
 
-export default function ProgramDetailPage({ params }: ProgramDetailPageProps) {
-  const program = programsData.find(p => p.slug === params.slug)
+export default async function ProgramDetailPage({ params }: ProgramDetailPageProps) {
+  // Attendre la résolution des params
+  const { slug } = await params;
+  
+  const program = programsData.find(p => p.slug === slug);
   
   if (!program) {
-    notFound()
+    notFound();
   }
   
-  const IconComponent = program.icon
+  const IconComponent = program.icon;
 
   return (
     <div className="min-h-screen bg-background py-12">
@@ -205,7 +206,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: ProgramDetailPageProps) {
-  const program = programsData.find(p => p.slug === params.slug)
+  // Attendre la résolution des params
+  const { slug } = await params;
+  
+  const program = programsData.find(p => p.slug === slug);
   
   if (!program) {
     return {
