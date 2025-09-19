@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Clock, Mic, Music, Globe, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
-// Données des programmes (les mêmes que dans la page détail)
+// Données des programmes
 const programsData = [
   {
     slug: "journal-matinal",
